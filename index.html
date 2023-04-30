@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Форма обратной связи</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			background-color: gray;
+
+		}
+		html {
+			font-size: 16px;
+		}
+		.form-container {
+			background-color: white;
+			max-width: 450px;
+			width: 95%;
+			margin: auto;
+			padding: 40px;
+			box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
+			margin-top: 50px;
+		}
+		#form {
+
+		}
+		input {
+			display: block;
+			width: 100%;
+			margin: 0.5rem 0;
+			padding: 0.5rem 0;
+			outline: none;
+			font-size: 1rem;
+			letter-spacing: 0.75px;
+			border: none;
+			border-bottom: 1.5px solid rgb(200, 200, 200);
+			border-radius: 0;
+			transition: 0.2s ease;
+		}
+		input:focus {	
+			border-color: green;
+		}
+		.form-heading {
+			text-align: center;
+			font-weight: 500;
+			font-size: 1.5rem;
+			letter-spacing: 0.75px;
+		}
+		#submit {
+			border: none;
+			background-color: green;
+			color: white;
+			font-weight: bold;
+			text-shadow: 0 0 2px rgba(0,0,0,0.2);
+			border-radius: 3px;
+			padding: 0.6rem 0;
+			width: 150px;
+			cursor: pointer;
+			margin-left: calc(100% - 150px);
+			box-shadow: 2px 2px 10px 0 rgba(0,0,0,0.2);
+			margin-top: 1.5rem;
+		}
+		#submit:active {
+			transform: translate(2px, 2px);
+			box-shadow: none;
+		}
+		label {
+			display: block;
+			font-size: 0.9rem;
+			letter-spacing: 0.75rem;
+			color: rgb(68, 68, 68);
+			transform: translateY(2rem);
+		}
+		.focused {
+			transform: translateX(-12.5%) translateY(0.2rem) scale(0.75);
+		}
+
+	</style>
+</head>
+</head>
+<body>
+	<div class ="form-container">
+		<h3 class = "form-heading">Формочка</h3>
+		<form action="" id="form">
+			<div class = "field">
+				<label for="name">Имя</label>
+				<input type="text" id="name">
+			</div>
+			<div class="field">
+				<label for="email">E-mail</label>
+				<input type="email" id="email">
+			</div>
+			<input type="submit" id="submit">
+		</form>
+	</div>
+	<script>
+		var inputs = [].slice.call(document.querySelectorAll('input'));
+
+		inputs.forEach(function(input){
+		  if (input.getAttribute('type') != 'submit'){
+		    console.log(input);
+		    if (input.value != '') {
+		      var labels = document.querySelectorAll('label[for="' + input.id + '"]');
+		      labels.forEach(function(label) {
+		        label.classList.add('focused');
+		      });
+		    }
+		    input.addEventListener('focusin', focusInputHandler, false);
+		    input.addEventListener('focusout', focusoutInputHandler, false);
+		  }
+		});
+
+		function focusInputHandler() {
+		  var labels = document.querySelectorAll('label[for="' + this.id + '"]');
+		  labels.forEach(function(label) {
+		    label.classList.add('focused');
+		  });
+		}
+
+		function focusoutInputHandler() {
+		  var labels = document.querySelectorAll('label[for="' + this.id + '"]');
+		  labels.forEach(function(label) {
+		    if (this.value == '')
+		      label.classList.remove('focused');
+		  }.bind(this));
+		}
+
+	</script>
+</body>
+</html>
